@@ -1,0 +1,804 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="sme_invoice_document">
+    <t t-call="report.external_layout">
+            
+            <!-- Template Tax Invoice -->
+            <div class="page" t-if="o.type == 'out_invoice'">
+                <div class="text-center">
+                    <h1>
+                        Tax Invoice
+                    </h1>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <strong>Bill To :</strong><br />
+                        <span t-field="o.partner_id.name"/><br />
+                        <span t-field="o.partner_id.street"/>, <span t-field="o.partner_id.street2"/><br />
+                        <span t-field="o.partner_id.city"/>, <span t-field="o.partner_id.state_id.name"/>, <span t-field="o.partner_id.zip"/><br />
+                        <span>Tel : </span><span t-field="o.partner_id.phone"/><br />
+                        <span t-if="o.partner_id.co_reg">Reg No.: </span><span t-field="o.partner_id.co_reg"/> 
+                        <span t-if="o.partner_id.gst_id">GST ID : </span><span t-field="o.partner_id.gst_id"/>
+                        <span t-if="o.partner_id.new_ic_number">IC N° : </span><span t-field="o.partner_id.new_ic_number"/>
+                    </div>
+                    <div class="col-xs-4">
+                        <strong t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">Invoice N° : </strong>
+                        <strong t-if="o.type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</strong>
+                        <strong t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</strong>
+                        <strong t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice N° : </strong>
+                        <span t-field="o.number"/><br />
+                        <strong>Invoice Date : </strong><span t-field="o.date_invoice"/><br />
+                        <strong>Source Doc. : </strong><span t-field="o.origin"/><br />
+                        <strong>Customer Ref. : </strong><span t-field="o.name"/><br />
+                        <strong t-if="o.payment_term">Payment Type : </strong><span t-field="o.payment_term"/><br t-if="o.payment_term"/>
+                        <strong>Prepared by : </strong><span t-field="o.user_id.name"/><br />
+                    </div>
+                </div>
+                <t t-set="lines" t-value="lines(o)"/>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th class="text-right">Unit Price</th>
+                            <th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)</th>
+                            <th class="text-right">GST</th>
+                            <th class="text-right">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        <tr t-foreach="lines" t-as="l">
+                            <td><span t-field="l.no"/></td>
+                            <td><span t-field="l.name"/></td>
+                            <td>
+                                <span t-field="l.quantity"/>
+                                <span t-field="l.uos_id"  groups="product.group_uom"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="l.price_unit"/>
+                            </td>
+                            <td class="text-right" groups="sale.group_discount_per_so_line"><span t-field="l.discount"/></td>
+                            <td class="text-right">
+                                <span t-esc="', '.join(map(lambda x: x.description, l.invoice_line_tax_id))"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="l.price_subtotal" 
+                                    t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-xs-4 pull-right">
+                        <table class="table table-condensed">
+                            <tr class="border-black">
+                                <td><strong>Total (Excl. GST) :</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>GST @ 6% :</td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_tax" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr class="border-black">
+                                <td><strong>Total (Incl. GST) :</strong></td>
+                                <td class="text-right">
+                                     <span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr t-if="o.residual" class="border-black">
+                                <td><strong>Balance Need To Pay :</strong></td>
+                                <td class="text-right">
+                                     <span t-field="o.residual" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br />
+                    <div class="col-xs-7" t-if="o.tax_line">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>GST Summary</th>
+                                    <th class="text-right">Amount</th>
+                                    <th class="text-right">GST</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.tax_line" t-as="t">
+                                    <td><span t-field="t.name"/></td>
+                                    <td class="text-right">
+                                        <span t-field="t.base"
+                                            t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="t.amount"
+                                            t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-4 pull-right">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Authorized Signature</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>.</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span t-field="o.company_id.name"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-xs-8">
+                        <p t-if="o.comment">
+                            <strong>Terms &amp; Conditions:</strong><br />
+                            <span t-field="o.comment"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Template Supplier Invoice-->
+            <div class="page" t-if="o.type == 'in_invoice'">
+                <div class="text-center">
+                    <h1>
+                        <span t-if="o.is_selfbill == False">Tax Invoice</span>
+                        <span t-if="o.is_selfbill == True">Self-Billed Invoice</span>
+                    </h1>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <strong>Address :</strong><br />
+                        <span t-field="o.partner_id.name"/><br />
+                        <span t-field="o.partner_id.street"/>, <span t-field="o.partner_id.street2"/><br />
+                        <span t-field="o.partner_id.city"/>, <span t-field="o.partner_id.state_id.name"/>, <span t-field="o.partner_id.zip"/><br />
+                        <span>Tel: </span><span t-field="o.partner_id.phone"/><br />
+                        <span t-if="o.partner_id.co_reg">Reg No.: </span><span t-field="o.partner_id.co_reg"/> 
+                        <span t-if="o.partner_id.gst_id">GST ID : </span><span t-field="o.partner_id.gst_id"/>
+                        <span t-if="o.partner_id.new_ic_number">IC N° : </span><span t-field="o.partner_id.new_ic_number"/>
+                    </div>
+                    <div class="col-xs-4">
+                        <strong t-if="o.type == 'in_invoice' and (o.state == 'open' or o.state == 'paid')">Invoice N° </strong>
+                        <strong t-if="o.type == 'in_invoice' and o.state == 'draft'">Draft Invoice</strong>
+                        <strong t-if="o.type == 'in_invoice' and o.state == 'cancel'">Cancelled Invoice N° </strong>
+                        <span t-field="o.number"/><br />
+                        <t t-if="o.is_selfbill == True"><strong>RMCD Approval N° : </strong><span t-field="o.confirm_id"/><br /></t>
+                        <strong>Invoice Date : </strong><span t-field="o.date_invoice"/><br />
+                        <strong>Source Doc. : </strong><span t-field="o.origin"/><br />
+                        <t t-if="o.is_selfbill == False"><strong>Supplier Invoice N° : </strong><span t-field="o.supplier_invoice_number"/><br /></t>
+                        <strong>Payment Term : </strong><span t-field="o.payment_term"/><br />
+                        <strong>Prepared by : </strong><span t-field="o.user_id.name"/>
+                    </div>
+                </div>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th class="text-right">Unit Price</th>
+                            <th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)</th>
+                            <th class="text-right">GST</th>
+                            <th class="text-right">Amount</th>
+                        </tr>
+                    </thead>
+                    <t t-set="lines" t-value="lines(o)"/>
+                    <tbody class="invoice_tbody">
+                        <tr t-foreach="lines" t-as="l">
+                            <td><span t-field="l.no"/></td>
+                            <td><span t-field="l.name"/></td>
+                            <td>
+                                <span t-field="l.quantity"/>
+                                <span t-field="l.uos_id"  groups="product.group_uom"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="l.price_unit"/>
+                            </td>
+                            <td class="text-right" groups="sale.group_discount_per_so_line"><span t-field="l.discount"/></td>
+                            <td class="text-right">
+                                <span t-esc="', '.join(map(lambda x: x.description, l.invoice_line_tax_id))"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="l.price_subtotal" 
+                                    t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-xs-4 pull-right">
+                        <table class="table table-condensed">
+                            <tr class="border-black">
+                                <td><strong>Total (Excl. GST) :</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>GST Payable @ 6% :</td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_tax" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr class="border-black">
+                                <td><strong>Total (Incl. GST) :</strong></td>
+                                <td class="text-right">
+                                     <span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br />
+                    <div class="col-xs-7" t-if="o.tax_line">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>GST Summary</th>
+                                    <th class="text-right">Amount</th>
+                                    <th class="text-right">GST</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.tax_line" t-as="t">
+                                    <td><span t-field="t.name"/></td>
+                                    <td class="text-right">
+                                        <span t-field="t.base"
+                                            t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="t.amount"
+                                            t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <p t-if="o.comment">
+                    <strong>Terms &amp; Conditions:</strong><br />
+                    <span t-field="o.comment"/>
+                </p>
+            </div>
+            
+            <!-- Template Out Debit Note -->
+            
+            <div class="page" t-if="o.type == 'out_debitnote'">
+                <div class="text-center">
+                    <h1>
+                        Debit Note
+                    </h1>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <strong>Bill To :</strong><br />
+                        <span t-field="o.partner_id.name"/><br />
+                        <span t-field="o.partner_id.street"/>, <span t-field="o.partner_id.street2"/><br />
+                        <span t-field="o.partner_id.city"/>, <span t-field="o.partner_id.state_id.name"/>, <span t-field="o.partner_id.zip"/><br />
+                        <span>Tel : </span><span t-field="o.partner_id.phone"/><br />
+                        <span t-if="o.partner_id.co_reg">Reg No.: </span><span t-field="o.partner_id.co_reg"/> 
+                        <span t-if="o.partner_id.gst_id">GST ID : </span><span t-field="o.partner_id.gst_id"/>
+                        <span t-if="o.partner_id.new_ic_number">IC N° : </span><span t-field="o.partner_id.new_ic_number"/>
+                    </div>
+                    <div class="col-xs-4">
+                        <strong t-if="o.type == 'out_debitnote' and (o.state == 'open' or o.state == 'paid')">Debit Note N° : </strong>
+                        <strong t-if="o.type == 'out_debitnote' and o.state == 'proforma2'">PRO-FORMA</strong>
+                        <strong t-if="o.type == 'out_debitnote' and o.state == 'draft'">Draft Debit Note</strong>
+                        <strong t-if="o.type == 'out_debitnote' and o.state == 'cancel'">Cancelled DN N° : </strong>
+                        <span t-field="o.number"/><br />
+                        <strong>Debit Note Date : </strong><span t-field="o.date_invoice"/><br />
+                        <strong>Source Doc. : </strong><span t-field="o.origin"/><br />
+                        <strong>Customer Ref. : </strong><span t-field="o.name"/><br />
+                        <strong t-if="o.payment_term">Payment Type : </strong><span t-field="o.payment_term"/><br t-if="o.payment_term"/>
+                        <strong>Prepared by : </strong><span t-field="o.user_id.name"/><br />
+                    </div>
+                </div>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th class="text-right">Unit Price</th>
+                            <th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)</th>
+                            <th class="text-right">GST</th>
+                            <th class="text-right">Amount</th>
+                        </tr>
+                    </thead>
+                    <t t-set="lines" t-value="lines(o)"/>
+                    <tbody class="invoice_tbody">
+                        <tr t-foreach="lines" t-as="l">
+                            <td><span t-field="l.no"/></td>
+                            <td><span t-field="l.name"/></td>
+                            <td>
+                                <span t-field="l.quantity"/>
+                                <span t-field="l.uos_id"  groups="product.group_uom"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="l.price_unit"/>
+                            </td>
+                            <td class="text-right" groups="sale.group_discount_per_so_line"><span t-field="l.discount"/></td>
+                            <td class="text-right">
+                                <span t-esc="', '.join(map(lambda x: x.description, l.invoice_line_tax_id))"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="l.price_subtotal" 
+                                    t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-xs-4 pull-right">
+                        <table class="table table-condensed">
+                            <tr class="border-black">
+                                <td><strong>Total (Excl. GST) :</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>GST @ 6% :</td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_tax" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr class="border-black">
+                                <td><strong>Total (Incl. GST) :</strong></td>
+                                <td class="text-right">
+                                     <span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br />
+                    <div class="col-xs-7" t-if="o.tax_line">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>GST Summary</th>
+                                    <th class="text-right">Amount</th>
+                                    <th class="text-right">GST</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.tax_line" t-as="t">
+                                    <td><span t-field="t.name"/></td>
+                                    <td class="text-right">
+                                        <span t-field="t.base"
+                                            t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="t.amount"
+                                            t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 pull-right">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Authorized Signature</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>.</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span t-field="o.company_id.name"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <p t-if="o.comment">
+                    <strong>Terms &amp; Conditions:</strong><br />
+                    <span t-field="o.comment"/>
+                </p>
+            </div>
+            
+            <!-- Template In Debit Note -->
+            
+            <div class="page" t-if="o.type == 'in_debitnote'">
+                <div class="text-center">
+                    <h1>
+                        Debit Note
+                    </h1>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <strong>Bill To :</strong><br />
+                        <span t-field="o.partner_id.name"/><br />
+                        <span t-field="o.partner_id.street"/>, <span t-field="o.partner_id.street2"/><br />
+                        <span t-field="o.partner_id.city"/>, <span t-field="o.partner_id.state_id.name"/>, <span t-field="o.partner_id.zip"/><br />
+                        <span>Tel : </span><span t-field="o.partner_id.phone"/><br />
+                        <span t-if="o.partner_id.co_reg">Reg No.: </span><span t-field="o.partner_id.co_reg"/> 
+                        <span t-if="o.partner_id.gst_id">GST ID : </span><span t-field="o.partner_id.gst_id"/>
+                        <span t-if="o.partner_id.new_ic_number">IC N° : </span><span t-field="o.partner_id.new_ic_number"/>
+                    </div>
+                    <div class="col-xs-4">
+                        <strong t-if="o.type == 'in_debitnote' and (o.state == 'open' or o.state == 'paid')">Debit Note N° : </strong>
+                        <strong t-if="o.type == 'in_debitnote' and o.state == 'proforma2'">PRO-FORMA</strong>
+                        <strong t-if="o.type == 'in_debitnote' and o.state == 'draft'">Draft Debit Note</strong>
+                        <strong t-if="o.type == 'in_debitnote' and o.state == 'cancel'">Cancelled DN N° : </strong>
+                        <span t-field="o.number"/><br />
+                        <strong>Debit Note Date : </strong><span t-field="o.date_invoice"/><br />
+                        <strong>Source Doc. : </strong><span t-field="o.origin"/><br />
+                        <strong>Customer Ref. : </strong><span t-field="o.name"/><br />
+                        <strong t-if="o.payment_term">Payment Type : </strong><span t-field="o.payment_term"/><br t-if="o.payment_term"/>
+                        <strong>Prepared by : </strong><span t-field="o.user_id.name"/><br />
+                    </div>
+                </div>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th class="text-right">Unit Price</th>
+                            <th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)</th>
+                            <th class="text-right">GST</th>
+                            <th class="text-right">Amount</th>
+                        </tr>
+                    </thead>
+                    <t t-set="lines" t-value="lines(o)"/>
+                    <tbody class="invoice_tbody">
+                        <tr t-foreach="lines" t-as="l">
+                            <td><span t-field="l.no"/></td>
+                            <td><span t-field="l.name"/></td>
+                            <td>
+                                <span t-field="l.quantity"/>
+                                <span t-field="l.uos_id"  groups="product.group_uom"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="l.price_unit"/>
+                            </td>
+                            <td class="text-right" groups="sale.group_discount_per_so_line"><span t-field="l.discount"/></td>
+                            <td class="text-right">
+                                <span t-esc="', '.join(map(lambda x: x.description, l.invoice_line_tax_id))"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="l.price_subtotal" 
+                                    t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-xs-4 pull-right">
+                        <table class="table table-condensed">
+                            <tr class="border-black">
+                                <td><strong>Total (Excl. GST) :</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>GST @ 6% :</td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_tax" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr class="border-black">
+                                <td><strong>Total (Incl. GST) :</strong></td>
+                                <td class="text-right">
+                                     <span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br />
+                    <div class="col-xs-7" t-if="o.tax_line">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>GST Summary</th>
+                                    <th class="text-right">Amount</th>
+                                    <th class="text-right">GST</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.tax_line" t-as="t">
+                                    <td><span t-field="t.name"/></td>
+                                    <td class="text-right">
+                                        <span t-field="t.base"
+                                            t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="t.amount"
+                                            t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <p t-if="o.comment">
+                    <strong>Terms &amp; Conditions:</strong><br />
+                    <span t-field="o.comment"/>
+                </p>
+        </div>
+        
+        <!-- Template Supplier Credit Note -->
+        
+        <div class="page" t-if="o.type == 'in_refund'">
+            <div class="text-center">
+                <h1>
+                    Credit Note
+                </h1>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <strong>Address :</strong><br />
+                    <span t-field="o.partner_id.name"/><br />
+                    <span t-field="o.partner_id.street"/>, <span t-field="o.partner_id.street2"/><br />
+                    <span t-field="o.partner_id.city"/>, <span t-field="o.partner_id.state_id.name"/>, <span t-field="o.partner_id.zip"/><br />
+                    <span>Tel: </span><span t-field="o.partner_id.phone"/><br />
+                    <span t-if="o.partner_id.co_reg">Reg No.: </span><span t-field="o.partner_id.co_reg"/> 
+                    <span t-if="o.partner_id.gst_id">GST ID : </span><span t-field="o.partner_id.gst_id"/>
+                    <span t-if="o.partner_id.new_ic_number">IC N° : </span><span t-field="o.partner_id.new_ic_number"/>
+                </div>
+                <div class="col-xs-4">
+                    <strong t-if="o.type == 'in_refund' and (o.state == 'open' or o.state == 'paid')">Credit Note N° </strong>
+                    <strong t-if="o.type == 'in_refund' and o.state == 'proforma2'">PRO-FORMA</strong>
+                    <strong t-if="o.type == 'in_refund' and o.state == 'draft'">Draft Credit Note</strong>
+                    <strong t-if="o.type == 'in_refund' and o.state == 'cancel'">Cancelled CN N° </strong>
+                    <span t-field="o.number"/><br />
+                    <strong>Credit Note Date : </strong><span t-field="o.date_invoice"/><br />
+                    <strong>Source Doc. : </strong><span t-field="o.origin"/><br />
+                    <strong>Customer Ref. : </strong><span t-field="o.name"/><br />
+                    <strong>Payment Term : </strong><span t-field="o.payment_term"/><br />
+                    <strong>Prepared by : </strong><span t-field="o.user_id.name"/>
+                </div>
+            </div>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th class="text-right">Unit Price</th>
+                        <th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)</th>
+                        <th class="text-right">GST</th>
+                        <th class="text-right">Amount</th>
+                    </tr>
+                </thead>
+                <t t-set="lines" t-value="lines(o)"/>
+                    <tbody class="invoice_tbody">
+                        <tr t-foreach="lines" t-as="l">
+                        <td><span t-field="l.no"/></td>
+                        <td><span t-field="l.name"/></td>
+                        <td>
+                            <span t-field="l.quantity"/>
+                            <span t-field="l.uos_id"  groups="product.group_uom"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="l.price_unit"/>
+                        </td>
+                        <td class="text-right" groups="sale.group_discount_per_so_line"><span t-field="l.discount"/></td>
+                        <td class="text-right">
+                            <span t-esc="', '.join(map(lambda x: x.description, l.invoice_line_tax_id))"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="l.price_subtotal" 
+                                t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-xs-4 pull-right">
+                    <table class="table table-condensed">
+                        <tr class="border-black">
+                            <td><strong>Total (Excl. GST) :</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>GST Payable @ 6% :</td>
+                            <td class="text-right">
+                                <span t-field="o.amount_tax" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                        <tr class="border-black">
+                            <td><strong>Total (Incl. GST) :</strong></td>
+                            <td class="text-right">
+                                 <span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br />
+                <div class="col-xs-7" t-if="o.tax_line">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>GST Summary</th>
+                                <th class="text-right">Amount</th>
+                                <th class="text-right">GST</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.tax_line" t-as="t">
+                                <td><span t-field="t.name"/></td>
+                                <td class="text-right">
+                                    <span t-field="t.base"
+                                        t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="t.amount"
+                                        t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p t-if="o.comment">
+                <strong>Terms &amp; Conditions :</strong><br />
+                <span t-field="o.comment"/>
+            </p>
+        </div>
+        
+        <!-- Template Customer Credit Note -->
+        
+        <div class="page" t-if="o.type == 'out_refund'">
+            <div class="text-center">
+                <h1>
+                    Credit Note
+                </h1>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <strong>Address :</strong><br />
+                    <span t-field="o.partner_id.name"/><br />
+                    <span t-field="o.partner_id.street"/>, <span t-field="o.partner_id.street2"/><br />
+                    <span t-field="o.partner_id.city"/>, <span t-field="o.partner_id.state_id.name"/>, <span t-field="o.partner_id.zip"/><br />
+                    <span>Tel: </span><span t-field="o.partner_id.phone"/><br />
+                    <span t-if="o.partner_id.co_reg">Reg No.: </span><span t-field="o.partner_id.co_reg"/> 
+                    <span t-if="o.partner_id.gst_id">GST ID : </span><span t-field="o.partner_id.gst_id"/>
+                    <span t-if="o.partner_id.new_ic_number">IC N° : </span><span t-field="o.partner_id.new_ic_number"/>
+                </div>
+                <div class="col-xs-4">
+                    <strong t-if="o.type == 'out_refund' and (o.state == 'open' or o.state == 'paid')">Credit Note  N° </strong>
+                    <strong t-if="o.type == 'out_refund' and o.state == 'proforma2'">PRO-FORMA</strong>
+                    <strong t-if="o.type == 'out_refund' and o.state == 'draft'">Draft Credit Note</strong>
+                    <strong t-if="o.type == 'out_refund' and o.state == 'cancel'">Cancelled CN N° </strong>
+                    <span t-field="o.number"/><br />
+                    <strong>Credit Note Date : </strong><span t-field="o.date_invoice"/><br />
+                    <strong>Source Doc. : </strong><span t-field="o.origin"/><br />
+                    <strong>Customer Ref. : </strong><span t-field="o.name"/><br />
+                    <strong>Payment Term : </strong><span t-field="o.payment_term"/><br />
+                    <strong>Prepared by : </strong><span t-field="o.user_id.name"/>
+                </div>
+            </div>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th class="text-right">Unit Price</th>
+                        <th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)</th>
+                        <th class="text-right">GST</th>
+                        <th class="text-right">Amount</th>
+                    </tr>
+                </thead>
+                <t t-set="lines" t-value="lines(o)"/>
+                    <tbody class="invoice_tbody">
+                        <tr t-foreach="lines" t-as="l">
+                        <td><span t-field="l.no"/></td>
+                        <td><span t-field="l.name"/></td>
+                        <td>
+                            <span t-field="l.quantity"/>
+                            <span t-field="l.uos_id"  groups="product.group_uom"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="l.price_unit"/>
+                        </td>
+                        <td class="text-right" groups="sale.group_discount_per_so_line"><span t-field="l.discount"/></td>
+                        <td class="text-right">
+                            <span t-esc="', '.join(map(lambda x: x.description, l.invoice_line_tax_id))"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="l.price_subtotal" 
+                                t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-xs-4 pull-right">
+                    <table class="table table-condensed">
+                        <tr class="border-black">
+                            <td><strong>Total (Excl. GST) :</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>GST Payable @ 6% :</td>
+                            <td class="text-right">
+                                <span t-field="o.amount_tax" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                        <tr class="border-black">
+                            <td><strong>Total (Incl. GST) :</strong></td>
+                            <td class="text-right">
+                                 <span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br />
+                <div class="col-xs-7" t-if="o.tax_line">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>GST Summary</th>
+                                <th class="text-right">Amount</th>
+                                <th class="text-right">GST</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.tax_line" t-as="t">
+                                <td><span t-field="t.name"/></td>
+                                <td class="text-right">
+                                    <span t-field="t.base"
+                                        t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="t.amount"
+                                        t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p t-if="o.comment">
+                <strong>Terms &amp; Conditions :</strong><br />
+                <span t-field="o.comment"/>
+            </p>
+        </div>
+    </t>
+</template>
+
+<template id="sme_invoice">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'sme.sme_invoice_document')"/>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

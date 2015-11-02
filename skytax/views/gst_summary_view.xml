@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+      
+    <record id="view_gst_period" model="ir.ui.view">
+        <field name="name">Print Unpaid Payables/Receivables by Period</field>
+        <field name="model">wiz.gst.period</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="GST03">
+                <group>
+                    <field name="company_id" widget="selection"/>
+                </group>
+                <newline/>
+                <separator colspan="4"/>
+                <group col="6" colspan="4">
+                    <button icon="gtk-execute" name="xls_export" string="XLS" type="object" context="{'xls_export':1}" colspan="2" default_focus="1"/>
+                    <button icon="gtk-cancel" special="cancel" string="Cancel" colspan="2"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gst_period" model="ir.actions.act_window">
+        <field name="name">GST Summary</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wiz.gst.period</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_gst_period"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        name="GST Summary"
+        parent="menu_report_gst"
+        action="action_gst_period"
+        id="menu_gst_period"
+        icon="STOCK_PRINT"/>
+<!--
+      
+    <act_window name="GST Summary"
+        res_model="wiz.gst.period"
+        src_model="account.period"
+        view_type="form" view_mode="form" target="new"
+        key2="client_print_multi" multi="True"
+        id="act_gstp_period"/>
+-->
+      
+</data>
+</openerp>

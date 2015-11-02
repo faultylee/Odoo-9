@@ -1,0 +1,91 @@
+# Dutch translation of OpenERP Server 6.1.
+# This file contains the translation of the following modules:
+#	* account_open_receivables_payables_xls
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1\n"
+"Report-Msgid-Bugs-To: support@noviat.be\n"
+"POT-Creation-Date: 2013-10-30 12:45:14.156000\n"
+"PO-Revision-Date: 2013-10-30 12:45:14.156000\n"
+"Last-Translator: Luc De Meyer (Noviat nv/sa)\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. module: account_open_receivables_payables_xls
+#: model:ir.actions.act_window,name:account_open_receivables_payables_xls.action_partner_open_arap_period
+msgid "Open Receivables/Payables by Period"
+msgstr "Debiteuren/Crediteuren overzicht per periode"
+
+#. module: account_open_receivables_payables_xls
+#: model:ir.ui.menu,name:account_open_receivables_payables_xls.menu_partner_open_arap_period
+msgid "Open Receivables/Payables by Period"
+msgstr "Debiteuren/Crediteuren overzicht per periode"
+
+#. module: account_open_receivables_payables_xls
+#: report:account.partner.open.arap.period.print:10
+msgid "Document"
+msgstr "Document"
+
+#. module: account_open_receivables_payables_xls
+#: report:account.partner.open.arap.period.print:11
+msgid "Date"
+msgstr "Datum"
+
+#. module: account_open_receivables_payables_xls
+#: report:account.partner.open.arap.period.print:12
+msgid "Due Date"
+msgstr "Vervaldatum"
+
+#. module: account_open_receivables_payables_xls
+#: report:account.partner.open.arap.period.print:13
+msgid "Account"
+msgstr "Rekening"
+
+#. module: account_open_receivables_payables_xls
+#: report:account.partner.open.arap.period.print:14
+msgid "Description"
+msgstr "Omschrijving"
+
+#. module: account_open_receivables_payables_xls
+#: report:account.partner.open.arap.period.print:14
+msgid "Debit"
+msgstr "Debet"
+
+#. module: account_open_receivables_payables_xls
+#: report:account.partner.open.arap.period.print:15
+msgid "Credit"
+msgstr "Credit"
+
+#. module: account_open_receivables_payables_xls
+#: report:account.partner.open.arap.period.print:16
+msgid "Balance"
+msgstr "Saldo"
+
+#. module: account_open_receivables_payables_xls
+#: report:account.partner.open.arap.period.print:17
+msgid "Totals"
+msgstr "Totalen"
+
+#. module: account_open_receivables_payables_xls
+#: code:addons/account_open_receivables_payables_xls/report/account_partner_open_arap.py:10
+msgid "Open Receivables"
+msgstr "Debiteuren"
+
+#. module: account_open_receivables_payables_xls
+#: code:addons/account_open_receivables_payables_xls/report/account_partner_open_arap.py:11
+msgid "Open Payables"
+msgstr "Crediteuren"
+
+#. module: account_open_receivables_payables_xls
+#: code:addons/account_open_receivables_payables_xls/report/account_partner_open_arap.py:11
+msgid "Fiscal Year"
+msgstr "Boekjaar"
+
+#. module: account_open_receivables_payables_xls
+#: code:addons/account_open_receivables_payables_xls/report/account_partner_open_arap.py:11
+msgid "Period"
+msgstr "Periode"
+

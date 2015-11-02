@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gst_tap_file,access_gst_tap_file,skytax.model_gst_tap_file,base.group_user,1,1,1,1
+access_invoice_auto,access_invoice_auto,skytax.model_invoice_auto,base.group_user,1,1,1,1
+access_gaf_report,access_gaf_report,skytax.model_gaf_report,base.group_user,1,1,1,1

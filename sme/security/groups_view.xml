@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+     
+     <record model="ir.module.category" id="group_skygst_main">
+            <field name="name">SME Management</field>
+            <field name="sequence">1</field>
+    </record>
+    
+    <record id="group_skygst_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="sme.group_skygst_main"/>
+    </record>
+    
+    <record id="group_skygst_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="sme.group_skygst_main"/>
+    </record>
+    
+</data>
+</openerp>

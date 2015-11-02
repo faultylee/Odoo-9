@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+<!--
+    <t t-name="WebClient.announcement_bar">
+        <div class="openerp" id="announcement_bar_table">
+            <table class="oe_webclient">
+                <tr>
+                    <td colspan="2" class="announcement_bar">
+                        <h4 style="cursor:pointer;" onclick="window.open('http://skygst.com', '_blank');">Welcome to SkyGST</h4>
+                        <span class="close"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </t>
+-->
+    <t t-name="UserMenu">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img class="oe_topbar_avatar" t-att-data-default-src="_s + '/web/static/src/img/user_menu_avatar.png'"/>
+                <span class="oe_topbar_name"/> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#" data-menu="settings">Preferences</a></li>
+                <li><a href="#" data-menu="about">About SkyGST</a></li>
+                <li><a href="#" data-menu="logout">Log out</a></li>
+            </ul>
+        </li>
+    </t>
+    <t t-name="UserMenu.about">
+
+        <div class="oe_about">
+
+            <div class="container-fluid">
+<!--
+                <div class="row">
+                    <a class="oe_activate_debug_mode oe_right label label-primary" href="?debug" >Activate the developer mode</a>
+                </div>
+-->
+                <div class="row">
+                    <div class="col-sm-offset-2 col-md-offset-2 col-sm-8 col-md-8 user-details">
+                        <div class="user-image">
+                            <img src="/sme/static/src/img/logo.png" alt="SkyGST" title="SkyGST"/>
+                        </div>
+                        <div class="user-info-block">
+                            <div class="user-heading">
+                                <br/><span class="help-block">Cloud Accounting</span>
+                                <h3>Version <t t-esc="version_info.server_version"/></h3>
+                            </div>
+
+                            <ul class="list-inline text-center navigation">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#settings">
+                                        <span class="glyphicon glyphicon-cog"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#email">
+                                        <span class="glyphicon glyphicon-envelope"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#events">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </a>
+                                </li>
+                                 <li>
+                                    <a data-toggle="tab" href="#social">
+                                        <span class="glyphicon glyphicon-share"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="user-body">
+                                <div class="tab-content">
+                                    <div id="settings" class="tab-pane active">
+                                        <h4>Copyright © 2014-TODAY SkyGST. All Rights Reserved.</h4>
+                                        <p>For more information visit <a target="_blank" href="http://skygst.com" style="text-decoration: underline;">Skygst.com</a></p>
+                                    </div>
+                                    <div id="email" class="tab-pane">
+                                    <h4>SkyGST Sdn. Bhd.</h4>
+                                    <p>
+                                        08-51B, 8th Floor<br/>
+                                        Berjaya Times Square<br/>
+                                        Kuala Lumpur
+                                    </p>
+                                    <!-- TODO - ALIAS contactus -->
+                                    <a class='btn btn-link' href='https://www.skygst.com/contact'>Our website</a>
+                                </div>
+                                    <div id="events" class="tab-pane">
+                                        <h4>For events visit our website...</h4>
+                                        <a class='btn btn-link' href='http://skygst.com'> Our next Events</a>
+                                    </div>
+                                    <div id="social" class="tab-pane">
+                                        <h4>Follow Us...</h4>
+                                        <a href="http://facebook.com/skygst"><i class="fa fa-facebook-square fa-3x social-fb"></i></a>
+                                        <a href="#"><i class="fa fa-twitter-square fa-3x social-tw"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus-square fa-3x social-gp"></i></a>
+                                        <a href="#"><i class="fa fa-linkedin-square fa-3x social-lk"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="purchase.report_purchasequotation">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <div class="oe_structure"/>
+
+                    <div class="row">
+                        <div class="text-center">
+                            <h1>
+                                <span>Request for Quotation</span>
+                            </h1>
+                        </div>
+                        <div class="col-xs-8">
+                            <strong>Address :</strong><br/>
+                            <span t-field="o.partner_id.name"/><br />
+                            <span t-field="o.partner_id.street"/>, <span t-field="o.partner_id.street2"/><br />
+                            <span t-field="o.partner_id.city"/>, <span t-field="o.partner_id.state_id.name"/>, <span t-field="o.partner_id.zip"/><br />
+                            <span t-if="o.partner_id.phone">Tel : </span><span t-field="o.partner_id.phone"/>
+                            <span t-if="o.partner_id.gst_id">GST ID : </span><span t-field="o.partner_id.gst_id"/>
+                        </div>
+                        <div class="col-xs-4">
+                            <strong>RFQ Number : </strong> <span t-field="o.name"/><br />
+                            <strong>Order Date : </strong><span t-field="o.date_order"/><br />
+                            <strong>Prepared By : </strong><span t-field="o.validator"/>
+                        </div>
+                    </div>
+                    <t t-set="lines" t-value="lines(o)"/>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th><strong>Item</strong></th>
+                                <th><strong>Description</strong></th>
+                                <th class="text-center"><strong>Expected Date</strong></th>
+                                <th class="text-right"><strong>Qty</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="lines" t-as="order_line">
+                                <td>
+                                    <span t-field="order_line.no"/>
+                                </td>
+                                <td>
+                                    <span t-field="order_line.name"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="order_line.date_planned"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="order_line.product_qty"/>
+                                    <span t-field="order_line.product_uom" groups="product.group_uom"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <p t-if="o.notes">
+                        <strong>Terms &amp; Conditions:</strong> <br />
+                        <span t-field="o.notes"/>
+                    </p>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-4 pull-right">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Authorized Signature</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span t-field="o.company_id.name"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>
+    

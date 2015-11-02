@@ -1,0 +1,149 @@
+id,code,name,user_type_id/id,reconcile,chart_template_id:id
+100101,100101,Cash,account.data_account_type_liquidity,False,l10n_my
+100201,100201,Bank,account.data_account_type_liquidity,False,l10n_my
+101001,101001,Allowance for bad debts,account.data_account_type_current_assets,False,l10n_my
+101002,101002,Development costs,account.data_account_type_current_assets,False,l10n_my
+101003,101003,Employee cash advances,account.data_account_type_current_assets,False,l10n_my
+101004,101004,Inventory,account.data_account_type_current_assets,False,l10n_my
+101005,101005,Investments - other,account.data_account_type_current_assets,False,l10n_my
+101006,101006,Loans to officers,account.data_account_type_current_assets,False,l10n_my
+101007,101007,Loans to others,account.data_account_type_current_assets,False,l10n_my
+101008,101008,Loans to shareholders,account.data_account_type_current_assets,False,l10n_my
+101009,101009,Prepaid expenses,account.data_account_type_current_assets,False,l10n_my
+101010,101010,Retainage,account.data_account_type_current_assets,False,l10n_my
+101011,101011,Undeposited funds,account.data_account_type_current_assets,False,l10n_my
+101012,101012,Other Current Assets,account.data_account_type_current_assets,False,l10n_my
+102001,102001,Accumulated amortisation,account.data_account_type_current_assets,False,l10n_my
+102002,102002,Accumulated depreciation,account.data_account_type_current_assets,False,l10n_my
+102003,102003,Accumulated depletion,account.data_account_type_current_assets,False,l10n_my
+102004,102004,Buildings,account.data_account_type_current_assets,False,l10n_my
+102005,102005,Depletable assets,account.data_account_type_current_assets,False,l10n_my
+102006,102006,Furniture and fixtures,account.data_account_type_current_assets,False,l10n_my
+102007,102007,Leasehold improvements,account.data_account_type_current_assets,False,l10n_my
+102008,102008,Machinery and equipment,account.data_account_type_current_assets,False,l10n_my
+102009,102009,Vehicles,account.data_account_type_current_assets,False,l10n_my
+102010,102010,Other Assets,account.data_account_type_current_assets,False,l10n_my
+103001,103001,Intangible Assets,account.data_account_type_current_assets,False,l10n_my
+103002,103002,Accumulated amortization of non-current assets,account.data_account_type_current_assets,False,l10n_my
+103003,103003,Available-for-sale financial assets,account.data_account_type_current_assets,False,l10n_my
+103004,103004,Deferred tax,account.data_account_type_current_assets,False,l10n_my
+103005,103005,Goodwill,account.data_account_type_current_assets,False,l10n_my
+103006,103006,Investments,account.data_account_type_current_assets,False,l10n_my
+103007,103007,Lease Buyout,account.data_account_type_current_assets,False,l10n_my
+103008,103008,Licences,account.data_account_type_current_assets,False,l10n_my
+103009,103009,Organisational costs,account.data_account_type_current_assets,False,l10n_my
+103010,103010,Other intangible assets,account.data_account_type_current_assets,False,l10n_my
+103011,103011,Other non-current assets,account.data_account_type_current_assets,False,l10n_my
+103012,103012,Prepayments and accrued income,account.data_account_type_current_assets,False,l10n_my
+103013,103013,Security Deposits,account.data_account_type_current_assets,False,l10n_my
+103014,103014,Other non-current assets,account.data_account_type_current_assets,False,l10n_my
+104001,104001,Trade Receivable Account,account.data_account_type_receivable,True,l10n_my
+104002,104002,Other Receivable Account,account.data_account_type_receivable,True,l10n_my
+105001,105001,Purchase Tax Account 6% TX,account.data_account_type_current_assets,False,l10n_my
+105002,105002,Purchase Tax Account 6% IM,account.data_account_type_current_assets,False,l10n_my
+105003,105003,Purchase Tax Account 0% IS,account.data_account_type_current_assets,False,l10n_my
+105004,105004,Purchase Tax Account 6% BL,account.data_account_type_current_assets,False,l10n_my
+105005,105005,Purchase Tax Account 0% NR,account.data_account_type_current_assets,False,l10n_my
+105006,105006,Purchase Tax Account 0% ZP,account.data_account_type_current_assets,False,l10n_my
+105007,105007,Purchase Tax Account 0% EP,account.data_account_type_current_assets,False,l10n_my
+105008,105008,Purchase Tax Account 0% OP,account.data_account_type_current_assets,False,l10n_my
+105009,105009,Purchase Tax Account 6% TX-E43,account.data_account_type_current_assets,False,l10n_my
+105010,105010,Purchase Tax Account 6% TX-N43,account.data_account_type_current_assets,False,l10n_my
+105011,105011,Purchase Tax Account 6% TX-RE,account.data_account_type_current_assets,False,l10n_my
+105012,105012,Purchase Tax Account 0% GP,account.data_account_type_current_assets,False,l10n_my
+105013,105013,Purchase Tax Account 6% AJP,account.data_account_type_current_assets,False,l10n_my
+200001,200001,Current portion of employee benefits obligations,account.data_account_type_current_liabilities,False,l10n_my
+200002,200002,Current portion of obligations under finance leases,account.data_account_type_current_liabilities,False,l10n_my
+200003,200003,Current Tax Liability,account.data_account_type_current_liabilities,False,l10n_my
+200004,200004,Insurance Payable,account.data_account_type_current_liabilities,False,l10n_my
+200005,200005,Interest payables,account.data_account_type_current_liabilities,False,l10n_my
+200006,200006,Line of Credit,account.data_account_type_current_liabilities,False,l10n_my
+200007,200007,Loan Payable,account.data_account_type_current_liabilities,False,l10n_my
+200008,200008,Payroll Clearing,account.data_account_type_current_liabilities,False,l10n_my
+200009,200009,Payroll liabilities,account.data_account_type_current_liabilities,False,l10n_my
+200010,200010,Prepaid Expenses Payable,account.data_account_type_current_liabilities,False,l10n_my
+200011,200011,Provision for warranty obligations,account.data_account_type_current_liabilities,False,l10n_my
+200012,200012,Rents in trust - Liability,account.data_account_type_current_liabilities,False,l10n_my
+200013,200013,GST Payable,account.data_account_type_current_liabilities,False,l10n_my
+200014,200014,Short term borrowings,account.data_account_type_current_liabilities,False,l10n_my
+200015,200015,Client Trust Accounts - Liabilities,account.data_account_type_current_liabilities,False,l10n_my
+201001,201001,Accruals and Deferred Income,account.data_account_type_current_liabilities,False,l10n_my
+201002,201002,Bank loans,account.data_account_type_current_liabilities,False,l10n_my
+201003,201003,Obligations under finance leases,account.data_account_type_current_liabilities,False,l10n_my
+201004,201004,Long term borrowings,account.data_account_type_current_liabilities,False,l10n_my
+201005,201005,Long term employee benefit obligations,account.data_account_type_current_liabilities,False,l10n_my
+201006,201006,Notes Payable,account.data_account_type_current_liabilities,False,l10n_my
+201007,201007,Shareholder Notes Payable,account.data_account_type_current_liabilities,False,l10n_my
+201008,201008,Other non-current liabilities,account.data_account_type_current_liabilities,False,l10n_my
+202001,202001,Trade Payable Account,account.data_account_type_payable,True,l10n_my
+202002,202002,Other Payable Account,account.data_account_type_payable,True,l10n_my
+203001,203001,Partner's Equity,account.data_account_type_equity,False,l10n_my
+203002,203002,Accumulated Adjustment,account.data_account_type_equity,False,l10n_my
+203003,203003,Ordinary shares,account.data_account_type_equity,False,l10n_my
+203004,203004,Opening Balance Equity,account.data_account_type_equity,False,l10n_my
+203005,203005,Owner's Equity,account.data_account_type_equity,False,l10n_my
+203006,203006,Paid-in capital or surplus,account.data_account_type_equity,False,l10n_my
+203007,203007,Preferred shares,account.data_account_type_equity,False,l10n_my
+203008,203008,Retained Earnings,account.data_account_type_equity,False,l10n_my
+203009,203009,Share capital,account.data_account_type_equity,False,l10n_my
+203010,203010,Treasury Shares,account.data_account_type_equity,False,l10n_my
+204001,204001,Sales Tax Account 6% SR,account.data_account_type_current_liabilities,False,l10n_my
+204002,204002,Sales Tax Account 0% ZRL,account.data_account_type_current_liabilities,False,l10n_my
+204003,204003,Sales Tax Account 0% ZRE,account.data_account_type_current_liabilities,False,l10n_my
+204004,204004,Sales Tax Account 0% ES43,account.data_account_type_current_liabilities,False,l10n_my
+204005,204005,Sales Tax Account 6% DS,account.data_account_type_current_liabilities,False,l10n_my
+204006,204006,Sales Tax Account 0% OS,account.data_account_type_current_liabilities,False,l10n_my
+204007,204007,Sales Tax Account 0% ES,account.data_account_type_current_liabilities,False,l10n_my
+204008,204008,Sales Tax Account 0% RS,account.data_account_type_current_liabilities,False,l10n_my
+204009,204009,Sales Tax Account 0% GS,account.data_account_type_current_liabilities,False,l10n_my
+204010,204010,Sales Tax Account 6% AJS,account.data_account_type_current_liabilities,False,l10n_my
+300001,300001,Discounts/refunds given,account.data_account_type_revenue,False,l10n_my
+300002,300002,Non-profit revenue,account.data_account_type_revenue,False,l10n_my
+300003,300003,Other primary revenue,account.data_account_type_revenue,False,l10n_my
+300004,300004,Sales of product revenue,account.data_account_type_revenue,False,l10n_my
+300005,300005,Service/fee revenue,account.data_account_type_revenue,False,l10n_my
+300006,300006,Unapplied cash payment income,account.data_account_type_revenue,False,l10n_my
+301001,301001,Dividend revenue,account.data_account_type_revenue,False,l10n_my
+301002,301002,Gain/loss on sale of fixed assets or investments,account.data_account_type_revenue,False,l10n_my
+301003,301003,Interest earned,account.data_account_type_revenue,False,l10n_my
+301004,301004,Other investment revenue,account.data_account_type_revenue,False,l10n_my
+301005,301005,Other miscellaneous revenue,account.data_account_type_revenue,False,l10n_my
+301006,301006,Tax-exempt interest,account.data_account_type_revenue,False,l10n_my
+401001,401001,Cost of Labour - COS,account.data_account_type_expenses,False,l10n_my
+401002,401002,Equipment rental - COS,account.data_account_type_expenses,False,l10n_my
+401003,401003,Freight and delivery - COS,account.data_account_type_expenses,False,l10n_my
+401004,401004,Other costs of sales - COS,account.data_account_type_expenses,False,l10n_my
+401005,401005,Supplies and materials - COS,account.data_account_type_expenses,False,l10n_my
+501001,501001,Administrative expenses,account.data_account_type_expenses,False,l10n_my
+501002,501002,Advertising/promotional,account.data_account_type_expenses,False,l10n_my
+501003,501003,Auto,account.data_account_type_expenses,False,l10n_my
+501004,501004,Bad debts,account.data_account_type_expenses,False,l10n_my
+501005,501005,Bank charges,account.data_account_type_expenses,False,l10n_my
+501006,501006,Charitable contributions,account.data_account_type_expenses,False,l10n_my
+501007,501007,Cost of labour,account.data_account_type_expenses,False,l10n_my
+501008,501008,Distribution costs,account.data_account_type_expenses,False,l10n_my
+501009,501009,Dues and subscriptions,account.data_account_type_expenses,False,l10n_my
+501010,501010,Entertainment,account.data_account_type_expenses,False,l10n_my
+501011,501011,Meals and entertainment,account.data_account_type_expenses,False,l10n_my
+501012,501012,Equipment rental,account.data_account_type_expenses,False,l10n_my
+501013,501013,Finance costs,account.data_account_type_expenses,False,l10n_my
+501014,501014,Insurance,account.data_account_type_expenses,False,l10n_my
+501015,501015,Interest paid,account.data_account_type_expenses,False,l10n_my
+501016,501016,Legal and professional fees,account.data_account_type_expenses,False,l10n_my
+501017,501017,Other miscellaneous service cost,account.data_account_type_expenses,False,l10n_my
+501018,501018,Payroll expenses,account.data_account_type_expenses,False,l10n_my
+501019,501019,Promotional meals,account.data_account_type_expenses,False,l10n_my
+501020,501020,Rent or lease of buildings,account.data_account_type_expenses,False,l10n_my
+501021,501021,Repair and maintenance,account.data_account_type_expenses,False,l10n_my
+501022,501022,"Shipping, freight, and delivery",account.data_account_type_expenses,False,l10n_my
+501023,501023,Supplies,account.data_account_type_expenses,False,l10n_my
+501024,501024,Taxes paid,account.data_account_type_expenses,False,l10n_my
+501025,501025,Travel,account.data_account_type_expenses,False,l10n_my
+501026,501026,Travel meals,account.data_account_type_expenses,False,l10n_my
+501027,501027,Utilities,account.data_account_type_expenses,False,l10n_my
+501028,501028,Unapplied cash bill payment expense,account.data_account_type_expenses,False,l10n_my
+502001,502001,Amortisation,account.data_account_type_expenses,False,l10n_my
+502002,502002,Depreciation,account.data_account_type_expenses,False,l10n_my
+502003,502003,Exchange Gain or Loss,account.data_account_type_expenses,False,l10n_my
+502004,502004,Other Expense,account.data_account_type_expenses,False,l10n_my
+502005,502005,Penalties and settlements,account.data_account_type_expenses,False,l10n_my

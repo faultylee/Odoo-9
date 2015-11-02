@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <template id="gst_tap_pdf">
+        <t t-call="report.html_container">
+            <t t-set="data_report_margin_top" t-value="10"/>
+            <t t-set="data_report_header_spacing" t-value="7"/>
+         <t t-foreach="docs" t-as="o">
+            <div class="page">
+                <div class="oe_structure"/>
+                    <div class="row" style="border:1px solid #000; border-radius:5px;padding:10px;">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <img class="img img-responsive" src="/skytax/static/src/img/kastam.jpg" style="max-height: 150px;"/>
+                            </div>
+                            <div class="col-xs-7">
+                                <div class="text-center">
+                                    <br />
+                                    <span style="font-size:20px;"><strong>JABATAN KASTAM DIRAJA MALAYSIA</strong></span>
+                                    <span style="font-size:20px;"><strong>ROYAL MALAYSIAN CUSTOMS DEPARTMENT</strong></span><br /><br />
+                                    <span style="font-size:15px;"><strong>PENYATA CUKAI BARANG DAN PERKHIDMATAN </strong></span><br />
+                                    <span style="font-size:15px;"><strong>GOODS AND SERVICES TAX RETURN  </strong></span>
+                                </div>
+                            </div>
+                            <div class="col-xs-2">
+                                <br />
+                                <span style="float:left;padding:10px;background-color:#000;color:#fff;text-transform:uppercase;font-size:20px;">GST-03</span>
+                            </div>
+                        </div><br />
+                        <div class="row" style="border:1px solid #000; border-radius:5px;padding:10px 5px 10px 10px;margin:0px 5px;">
+                            <div class="col-xs-4" style="border:1px solid #000;margin-left:5px;margin-top:-25px;padding:10px;z-index:100;text-align:center;position:absolute;background-color:#fff;">
+                                <td><span><strong>Nota Penting (Important Notes)</strong></span></td>
+                            </div><br />
+                            <div class="col-xs-12">
+                                1) Sila isikan borang ini dengan menaip menggunakan <strong>HURUF BESAR.</strong><br />
+                                <cat><span style="padding-left:15px;">  Please type in using <strong>BLOCK LETTERS.</strong></span></cat><br /> 
+                                2) Sila rujuk Buku Panduan Mengisi Borang Cukai Barang dan Perkhidmatan (CBP).<br />
+                                <cat><span style="padding-left:15px;"> Please refer to Goods and Services Tax (GST) Forms Guide.</span></cat><br /> 
+                                3) Ruangan yang bertanda (*) adalah wajib diisi.<br />
+                                <cat> <span style="padding-left:15px;"> Column with (*) is a mandatory field.</span></cat><br /> 
+                                4) Sila tandakan ( X ) dalam petak yang berkenaan<br />
+                                <cat> <span style="padding-left:15px;">Please tick ( X ) accordingly</span></cat><br />
+                                5) Sekiranya mengikrar nilai sifar, sila isi angka "0".<br /> 
+                                <span style="padding-left:15px;">If declaring a zero amount, please fill in "0".</span><br />
+                                6) Sila hubungi Pusat Panggilan Kastam di talian 1-300-88-8500 / 03-78067200 atau emel ccc@customs.gov.my untuk<br />
+                                <cat><span style="padding-left:15px;">pertanyaan lanjut</span></cat><br /> 
+                                <cat><span style="padding-left:15px;">Please contact Customs Call Center at 1-300-88-8500 / 03-78067200 or email ccc@customs.gov.my for further enquiry.</span></cat><br />
+                            </div>
+                        </div>                
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <td><input type="checkbox" style="margin-left:15px;transform:scale(4);float:left;"/><strong><span style="padding-left:15px; font-size:16px;color:#97C7FD;">  Pindaan</span></strong></td><br />
+                                <td><strong><span style="padding-left:35px;font-size:16px;color:#97C7FD;"><i>Amendment</i></span></strong></td><br />
+                            </div>
+                        </div>
+                        <div class="row" style="border:1px solid #000; border-radius:0px;padding:5px 0px;background-color:#97C7FD;margin:0px 10px;">
+                             <div class="text-center">
+                                 <span style="font-size:15px;"><strong>BAHAGIAN A : BUTIRAN ORANG BERDAFTAR</strong></span><br />
+                                 <span style="font-size:15px;"><strong><i>PART A : DETAILS OF REGISTERED PERSON </i></strong></span><br />
+                             </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <td><span class="col-xs-2">1)</span>
+                                <span class="col-xs-10" style="padding-left:10px;font-size:12px;">No. CBP *<br />
+                                    GST No. *</span></td><br /> 
+                            </div>
+                            <div class="col-xs-8">
+                                <div style="border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.company_id.vat"/></td>
+                                </div>       
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <td><span class="col-xs-2">2)</span> 
+                                <span class="col-xs-10" style="padding-left:10px;font-size:12px;">Nama Perniagaan *<br />
+                                Name of Business *</span></td><br />       
+                            </div>
+                            <div class="col-xs-8">
+                                <div style="border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.company_id.name"/></td>
+                                </div>       
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" style="border:1px solid #000; border-radius:0px;padding:5px 0px;background-color:#97C7FD;margin:0px 10px;">
+                            <div class="text-center">
+                                <span style="font-size:15px;"><strong>BAHAGIAN B : BUTIRAN PENYATA</strong></span><br />
+                                <span style="font-size:15px;"><strong><i>PART B : DETAILS OF RETURN</i></strong></span><br />
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <td><span class="col-xs-2">3)</span>  
+                                <span class="col-xs-10" style="padding-left:10px;font-size:12px;">Tempoh Bercukai *<br />
+                                Taxable Period *</span></td><br />		
+                            </div>
+                            <div class="col-xs-2" align="right" style="font-size:12px;">
+                                <td>Tarikh Mula</td><br />
+                                <td>Start Date</td><br /><br />
+                                <td>Tarikh Akhir</td><br />
+                                <td>End Date</td><br />   
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="col-xs-6" style="border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.date_from" t-field-options='{"format": "d-MM-y"}'/></td>
+                                </div>
+                                <br/>
+                                <div class="col-xs-8" style="margin-left:-15px;font-size:12px;font-size:12px;">
+                                   <cat>HH (DD)- BB(MM)-TTTT(YYYY)</cat>   
+                                </div><br/><br/>
+                                <div class="col-xs-6" style="border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.date_to" t-field-options='{"format": "d-MM-y"}'/></td>
+                                </div>
+                                <br/>
+                                <div class="col-xs-8" style="margin-left:-15px;font-size:12px;font-size:12px;">
+                                   <cat>HH (DD)- BB(MM)-TTTT(YYYY)</cat>   
+                                </div>							
+                            </div>      
+                        </div>
+                        <br/><br/>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <td><span class="col-xs-1">4)</span>  
+                                <span class="col-xs-11" style="padding-left:10px;font-size:12px;">Tarikh Akhir Serahan Penyata dan Bayaran *<br />
+                                Return and Payment Due Date *</span></td><br />
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="col-xs-6" style="border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.due_date" t-field-options='{"format": "d-MM-y"}'/></td>
+                                </div>
+                                <br/>
+                                <div class="col-xs-8" style="margin-left:-15px;font-size:12px;">
+                                   <cat>HH (DD)- BB(MM)-TTTT(YYYY)</cat>   
+                                </div>
+                            </div>      
+                        </div><br/>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                        <td><span class="col-xs-2">5)</span> 
+                                        <span class="col-xs-10" style="padding-left:10px;font-size:12px;">Cukai Output<br />
+                                        Output Tax </span></td><br />
+                            </div>
+                            <div class="col-xs-2" align="right">
+                                    <td></td><br />
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="col-xs-6" style="text-align:right;">
+                                   <strong><span style="padding-left:15px;font-size:14px;">Amaun (Amount)</span></strong>   
+                                </div>			
+                            </div>      
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xs-6" style="padding-left:20px;">
+                                <td><span class="col-xs-1" style="text-align:right;">a)</span>
+                                    <span class="col-xs-11" style="padding-left:10px;font-size:12px;">Jumlah Nilai Pembekalan Berkadar Standard *<br />
+                                    Total Value of Standard Rated Supply *</span>
+                                </td><br />       
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="float:left;">RM</span> 
+                                <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.c1"/></td>
+                                </div>			
+                            </div>      
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-xs-6" style="padding-left:20px;">
+                                <td><span class="col-xs-1" style="text-align:right;">b)</span>
+                                <span class="col-xs-11" style="padding-left:10px;font-size:12px;text-align:justify;">Jumlah Cukai Output (Termasuk Nilai Cukai ke atas Hutang Lapuk Dibayar Balik dan Pelarasan lain) *<br />
+                                Total Output Tax (Inclusive of Tax Value on Bad Debt Recovered &amp; other Adjustments) *</span></td><br />       
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="float:left;">RM</span> 
+                                <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.c2"/></td>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <span style="font-size:12px;">This form is prescribed under Goods and Services Tax Regulations 2015</span>
+                    <span style="font-size:12px;" class="pull-right">GST-03 | 1 / 3</span>
+                    <br />
+                    <br /> <br /><br />  
+                    <div class="row" style="border:1px solid #000; border-radius:5px;padding:10px;">   
+                        <div class="row">
+                            <div class="col-xs-6 pull-right">
+                                <div class="col-xs-3">
+                                    <td>No. CBP * </td><br/>
+                                    <cat>GST No.* </cat>
+                                </div>
+                                <div class="col-xs-9">
+                                    <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                        <td><span t-field="o.company_id.vat"/></td>
+                                    </div>			
+                                </div>     
+                            </div>       
+                        </div> 
+                        <hr style="border-bottom:1px solid #000;"/>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <td><span style="padding-left:15px; font-size:12px;">6) Cukai Input / Input Tax</span></td><br />
+                            </div>
+                            <div class="col-xs-2" align="right">
+                                <td></td><br />
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="col-xs-6" style="text-align:right;font-size:14px;">
+                                   <strong>Amaun (Amount)</strong>   
+                                </div>			
+                            </div>      
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xs-6">
+                                        <td><span class="col-xs-1" style="text-align:right;">a)</span> 
+                                        <span class="col-xs-11" style="padding-left:10px;font-size:12px;text-align:justify;">Jumlah Nilai Perolehan Berkadar Standard dan Berkadar Rata *<br />
+                                        Total Value of Standard Rated Supply *</span></td><br />        
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="float:left;">RM</span> 
+                                <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.c3"/></td>
+                                </div>
+                            </div>      
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <td><span class="col-xs-1" style="text-align:right;">b)</span>
+                                <span class="col-xs-11" style="padding-left:10px;font-size:12px;text-align:justify;">Jumlah Cukai Input (Termasuk Nilai Cukai ke atas Pelepasan Hutang Lapuk dan Pelarasan lain) * <br />
+                                Total Input Tax (Inclusive of Tax Value on Bad Debt Relief &amp;other Adjustments) *</span></td><br />       
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="float:left;">RM</span> 
+                                <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.c4"/></td>
+                                </div>
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <td><span class="col-xs-1">7)</span> 
+                                <span class="col-xs-11" style="padding-left:10px;font-size:12px;">Amaun CBP Kena Dibayar (Butiran 5b - Butiran 6b) *<br />
+                                GST Amount Payable (Item 5b - Item 6b) *</span></td><br />       
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="float:left;">RM</span> 
+                                <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                    <td>
+									<t t-name="greater-and-sub">
+										<td><span t-field="o.a2"/></td>
+                                    </t>
+									</td>
+                                </div>
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xs-6" style="text-align:center;font-size:14px;">
+                                <td><strong>ATAU / OR</strong></td><br />      
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <td><span class="col-xs-1">8)</span> 
+                                <span class="col-xs-11" style="padding-left:10px;font-size:12px;">Amaun CBP Boleh Dituntut (Butiran 6b - Butiran 5b) *<br />
+                                GST Amount Claimable (Item 6b - Item 5b) *</span></td><br />       
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="float:left;">RM</span> 
+                                <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                    <td>
+										<t t-name="greater-and-sub">
+											<td><span t-field="o.a1"/></td>
+										</t>
+                                    </td>
+                                </div>
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <td><span class="col-xs-1">9)</span>
+                                <span class="col-xs-11" style="padding-left:10px;font-size:12px;">Adakah anda memilih untuk membawa ke hadapan pembayaran balik CBP?<br />
+                                Do you choose to carry forward refund for GST?</span></td><br />       
+                            </div>
+                            <div class="col-xs-3">
+                                <td><input type="checkbox"/><span style="font-size:16px;"> Ya</span></td><br />
+                                <td><span style="padding-left:15px;font-size:16px;"> YES</span></td><br />
+                            </div>
+                            <div class="col-xs-3">
+                                <td><input type="checkbox"/><span style="font-size:16px;"> Tidak</span></td><br />
+                                <td><span style="padding-left:15px;font-size:16px;"> No</span></td><br />
+                            </div>
+                        </div><br />
+                        <div class="row" style="border:1px solid #000; border-radius:0px;padding:5px 0px;background-color:#97C7FD;margin:0px 10px;">
+                            <div class="text-center">
+                                <span style="font-size:15px;"><strong>BAHAGIAN C : MAKLUMAT TAMBAHAN</strong></span><br />
+                                <span style="font-size:15px;"><strong><i>PART C : ADDITIONAL INFORMATION</i></strong></span><br />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xs-6 pull-right">
+                                <td><span style="padding-left:15px;font-size:14px;"><strong>Amaun (Amount)</strong></span></td><br />      
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <td><span class="col-xs-1">10)</span> 
+                                <span class="col-xs-11" style="padding-left:10px;font-size:12px;">Jumlah Nilai Pembekalan Tempatan Berkadar Sifar *<br />
+                                Total Value of Local Zero-Rated Supplies *</span></td><br />       
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="float:left;">RM</span> 
+                                <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.c6"/></td>
+                                </div>
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <td><span class="col-xs-1">11)</span> 
+                                <span class="col-xs-11" style="padding-left:10px;font-size:12px;">Jumlah Nilai Pembekalan Eksport *<br />
+                                Total Value of Export Supplies *</span></td><br />       
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="float:left;">RM</span> 
+                                <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.c7"/></td>
+                                </div>
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <td><span class="col-xs-1">12)</span> 
+                                <span class="col-xs-11" style="padding-left:10px;font-size:12px;">Jumlah Nilai Pembekalan Dikecualikan *<br />
+                                Total Value of Exempt Supplies *</span></td><br />       
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="float:left;">RM</span> 
+                                <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.c8"/></td>
+                                </div>
+                            </div>
+                        </div><br/>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <td><span class="col-xs-1">13)</span> 
+                                <span class="col-xs-11" style="padding-left:10px;font-size:12px;">Jumlah Nilai Pembekalan Diberi Pelepasan CBP *<br />
+                                Total Value of Supplies Granted GST Relief *</span></td><br />       
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="float:left;">RM</span> 
+                                <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.c9"/></td>
+                                </div>
+                            </div>
+                        </div><br/>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <td><span class="col-xs-1">14)</span> 
+                                <span class="col-xs-11" style="padding-left:10px;font-size:12px;">Jumlah Nilai Pengimportan Barang Dibawah Skim Pedagang Diluluskan *<br />
+                                Total Value of Goods Imported Under Approved Trader Scheme *</span></td><br />       
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="float:left;">RM</span> 
+                                <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.c10"/></td>
+                                </div>
+                            </div>
+                        </div><br/>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <td><span class="col-xs-1">15)</span> 
+                                <span class="col-xs-11" style="padding-left:10px;font-size:12px;">Jumlah Nilai CBP Import Digantung dibawah butiran 14 *<br />
+                                Total Value of GST Suspended under item 14 *</span></td><br />       
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="float:left;">RM</span> 
+                                <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                    <td><span>0.0</span></td>
+                                </div>
+                            </div>
+                        </div><br/>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <td><span class="col-xs-1">16)</span> 
+                                <span class="col-xs-11" style="padding-left:10px;font-size:12px;">Jumlah Nilai Perolehan Harta Modal *<br />
+                                Total Value of Capital Goods Acquired *</span></td><br />       
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="float:left;">RM</span> 
+                                <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.c11"/></td>
+                                </div>
+                            </div>
+                        </div><br/>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <td><span class="col-xs-1">17)</span> 
+                                <span class="col-xs-11" style="padding-left:10px;font-size:12px;">Jumlah Nilai Pelepasan Hutang Lapuk Termasuk Cukai *<br />
+                                Total Value of Bad Debt Relief Inclusive Tax *</span></td><br />       
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="float:left;">RM</span> 
+                                <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.c12"/></td>
+                                </div>
+                            </div>
+                        </div><br/>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <td><span class="col-xs-1">18)</span> 
+                                <span class="col-xs-11" style="padding-left:10px;font-size:12px;">Jumlah Nilai Hutang Lapuk Dibayar Balik Termasuk Cukai * <br />
+                                Total Value of Bad Debt Recovered Inclusive Tax *</span></td><br />       
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="float:left;">RM</span> 
+                                <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                    <td><span t-field="o.c13"/></td>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span style="font-size:12px;">This form is prescribed under Goods and Services Tax Regulations 2015</span>
+                    <span style="font-size:12px;" class="pull-right">GST-03 | 2 / 3</span>
+                    <br/><br/><br/><br/><br/><br/><br/>
+                    <div class="row" style="border:1px solid #000; border-radius:5px;padding:10px;">
+                        <div class="row">
+                            <div class="col-xs-6 pull-right">
+                                <div class="col-xs-3">
+                                    <td><span style="font-size:12px;">No. CBP * </span></td><br/>
+                                    <cat><span style="font-size:12px;">GST No.*</span></cat>
+                                </div>
+                                <div class="col-xs-9">
+                                    <div class="col-xs-10" style="float:left;margin-left:3px;border:1px solid #000; border-radius:0px;">
+                                        <td><span t-field="o.company_id.vat"/></td>
+                                    </div>			
+                                </div>     
+                            </div>       
+                        </div>
+                        <hr style="border-bottom: 1px solid #000;"/> 
+                        <div class="row">
+                            <div class="col-xs-12">
+                                    <td>
+                                        <span style= "float:left;margin-left:10px; ">19)</span>
+                                        <span class="col-xs-11" style="padding-left:15px;font-size:12px;">Pecahan Nilai Cukai Output mengikut Kod Industri Utama<br/>
+                                        Breakdown Value of Output Tax in accordance with the Major Industries Code </span>
+                                    </td><br/> 
+                            </div>
+                        </div><br/> 
+                        <div class="row">
+                            <div class="col-xs-10 col-md-offset-2" style="margin-left:20px;">
+                                <table class="table table-bordered" style="border:1px solid #000;margin:0px 15px;">
+                                     <thead style="border:1px solid #000;">
+                                          <tr style="border:1px solid #000;">
+                                             <th style="border:1px solid #000;">Kod MSIC (MSIC Code)</th> 
+                                             <th style="border:1px solid #000;">Nilai Cukai Output (Value of Output Tax) </th> 
+                                             <th style="border:1px solid #000;">Peratusan (Percentage)</th> 
+                                          </tr>
+                                     </thead>
+                                     <tbody style="border:1px solid #000;">
+                                         <tr style="border:1px solid #000;">
+                                             <td class="col-xs-3 " style="border:1px solid #000;margin:0 auto;">
+                                                 <div class="col-xs-10" style="float:left;border:1px solid #000;margin-left:15px;">
+                                                     <br /> 
+                                                </div>
+                                                 <div class="col-xs-10" style="float:left;border:1px solid #000;margin-top:5px;margin-left:15px;">
+                                                     <br /> 
+                                                </div> 
+                                                 <div class="col-xs-10" style="float:left;border:1px solid #000;margin-top:5px;margin-left:15px;">
+                                                     <br /> 
+                                                </div> 
+                                                 <div class="col-xs-10" style="float:left;border:1px solid #000;margin-top:5px;margin-left:15px;">
+                                                     <br /> 
+                                                </div> 
+                                                 <div class="col-xs-10" style="float:left;border:1px solid #000;margin-top:5px;margin-left:15px;">
+                                                     <br /> 
+                                                </div>
+                                                <cat class="col-xs-7" style="margin-left:25px;"> Lain-lain</cat>
+                                                <cat class="col-xs-7" style="margin-left:25px;"> Others </cat>
+                                                <cat class="col-xs-7" style="margin-top:10px;margin-left:25px;">JUMLAH </cat>
+                                                <cat class="col-xs-7" style="margin-left:25px;">  TOTAL </cat>
+                                            </td>
+                                             <td class="col-xs-6" style="border:1px solid #000;">
+                                                 <span class="col-xs-2" style="float:left;">RM</span>
+                                                 <div class="col-xs-10" style="float:left;border:1px solid #000;">
+                                                     <br /> 
+                                                </div>
+                                                 <span class="col-xs-2" style="float:left;margin-top:10px;">RM</span>
+                                                 <div class="col-xs-10" style="float:left;border:1px solid #000;margin-top:10px;">
+                                                     <br /> 
+                                                </div>
+                                                <span class="col-xs-2" style="float:left;margin-top:10px;">RM</span>
+                                                 <div class="col-xs-10" style="float:left;border:1px solid #000;margin-top:10px;">
+                                                     <br /> 
+                                                </div>
+                                                <span class="col-xs-2" style="float:left;margin-top:10px;">RM</span>
+                                                 <div class="col-xs-10" style="float:left;border:1px solid #000;margin-top:10px;">
+                                                     <br /> 
+                                                </div>
+                                                <span class="col-xs-2" style="float:left;margin-top:10px;">RM</span>
+                                                 <div class="col-xs-10" style="float:left;border:1px solid #000;margin-top:10px;">
+                                                     <br /> 
+                                                </div>
+                                                <span class="col-xs-2" style="float:left;margin-top:10px;">RM</span>
+                                                 <div class="col-xs-10" style="float:left;border:1px solid #000;margin-top:10px;">
+                                                     <br /> 
+                                                </div>
+                                                <span class="col-xs-2" style="float:left;margin-top:10px;">RM</span>
+                                                 <div class="col-xs-10" style="float:left;border:1px solid #000;margin-top:10px;">
+                                                     <br /> 
+                                                </div>
+                                             </td>
+                                             <td class="col-xs-3" style="border:1px solid #000;">
+                                                <div class="col-xs-7" style="float:left;border:1px solid #000;margin-left:25px;">
+                                                     <br /> 
+                                                </div>
+                                                <span class="col-xs-2" style="float:left;margin-top:10px;">%</span>
+                                                <div class="col-xs-7" style="float:left;border:1px solid #000;margin-top:10px;margin-left:25px;">
+                                                     <br /> 
+                                                </div>
+                                                <span class="col-xs-2" style="float:left;margin-top:10px;">%</span>
+                                                <div class="col-xs-7" style="float:left;border:1px solid #000;margin-top:10px;margin-left:25px;">
+                                                     <br /> 
+                                                </div>
+                                                <span class="col-xs-2" style="float:left;margin-top:10px;">%</span>
+                                                <div class="col-xs-7" style="float:left;border:1px solid #000;margin-top:10px;margin-left:25px;">
+                                                     <br /> 
+                                                </div>
+                                                <span class="col-xs-2" style="float:left;margin-top:10px;">%</span>
+                                                <div class="col-xs-7" style="float:left;border:1px solid #000;margin-top:10px;margin-left:25px;">
+                                                     <br /> 
+                                                </div>
+                                                <span class="col-xs-2" style="float:left;margin-top:10px;">%</span>
+                                                <div class="col-xs-7" style="float:left;border:1px solid #000;margin-top:10px;margin-left:25px;">
+                                                     <br /> 
+                                                </div>
+                                                <span class="col-xs-2" style="float:left;margin-top:10px;">%</span>
+                                                <cat class="col-xs-7" style="margin-top:10px;margin-left:25px;">100%</cat>
+                                             </td>
+                                         </tr>
+                                     </tbody>
+                                </table>
+                            </div>
+                        </div><br /> 
+                        <div class="row" style="border:1px solid #000; border-radius:0px;padding:10px 0px;background-color:#97C7FD;margin:0px 10px;">
+                            <div class="text-center">
+                                <span style="font-size:15px;"><strong>BAHAGIAN D : AKUAN </strong></span><br />
+                                <span style="font-size:15px;"><strong><i>PART D : DECLARATION</i></strong></span><br />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xs-12">
+                                    <td><span style="padding-left:15px;font-size:12px;">Saya, dengan ini mengaku bahawa maklumat dinyatakan dalam borang ini adalah benar, betul dan lengkap.</span></td><br/>
+                                    <cat><span style="padding-left:15px;font-size:12px;">I, hereby declare that the information stated in this form are true, correct and complete.</span></cat>
+                            </div>
+                        </div><br/>
+                        <div class="row">
+                                <div class="col-xs-4">
+                                    <td><span class="col-xs-2">20)</span> 
+                                    <span class="col-xs-10" style="padding-left:15px;font-size:12px;">Nama Orang Diberi Kuasa *<br />
+                                    Name of Authorized Person *</span></td><br />       
+                                </div>
+                                <div class="col-xs-8">
+                                    <div style="border:1px solid #000; border-radius:0px;margin-right:5px;">
+                                        <td><span><br/><br/><br/></span></td>
+                                    </div>       
+                                </div>
+                        </div><br/>
+                        <div class="row">
+                                <div class="col-xs-4" style="font-size:12px;">
+                                    <td><span class="col-xs-2">21)</span> 
+                                    <span class="col-xs-10" style="padding-left:15px;font-size:12px;">No. Kad Pengenalan<br />
+                                    Identity Card No.</span></td><br />       
+                                </div>
+                                <div class="col-xs-5">
+                                    <span class="col-xs-12" style="float:left;font-size:12px;">Baru (New) *</span>   
+                                    <div class="col-xs-12" style="border:1px solid #000; border-radius:0px;margin-right:5px;">
+                                        <td><span><br/></span></td>
+                                    </div>
+                                </div>   
+                                <div class="col-xs-3">
+                                    <span class="col-xs-12" style="float:left;font-size:12px;">Lama (Old)</span> 
+                                    <div class="col-xs-12" style="border:1px solid #000; border-radius:0px;margin-right:5px;">
+                                        <td><span><br/></span></td>
+                                    </div>      
+                                </div>
+                        </div><br/>
+                        <div class="row">
+                                <div class="col-xs-4" style="font-size:12px;">
+                                    <td><span class="col-xs-2">22)</span> 
+                                    <span class="col-xs-10" style="padding-left:15px;font-size:12px;">No. Pasport *<br />
+                                     Passport No. *</span></td><br />       
+                                </div>
+                                <div class="col-xs-8">
+                                    <div class="col-xs-8" style="border:1px solid #000; border-radius:0px;margin-right:5px;">
+                                        <td><span><br/></span></td>
+                                    </div>
+                                    <span class="col-xs-10" style="float:left;font-size:12px;">Wajib untuk warga negara asing (Mandatory for foreign citizen)</span>        
+                                </div>
+                        </div><br/>
+                        <div class="row">
+                                <div class="col-xs-4" style="font-size:12px;">
+                                    <td><span class="col-xs-2">23)</span>
+                                    <span class="col-xs-10" style="padding-left:15px;font-size:12px;">Kewarganegaraan<br />
+                                    Nationality</span></td><br />       
+                                </div>
+                                <div class="col-xs-8">
+                                    <div style="border:1px solid #000; border-radius:0px;margin-right:5px;">
+                                        <td><span><br/><br/></span></td>
+                                    </div>       
+                                </div>
+                        </div><br/>
+                        <div class="row">
+                                <div class="col-xs-4" style="font-size:12px;">
+                                    <td><span class="col-xs-2">24)</span> 
+                                    <span class="col-xs-10" style="padding-left:15px;font-size:12px;">Tarikh<br />
+                                    Date</span></td><br />
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="col-xs-10" style="border:1px solid #000; border-radius:0px;">
+                                        <td><span><br/></span></td>
+                                    </div>
+                                    <br/>
+                                    <div class="col-xs-7" style="margin-left:-15px;font-size:12px;">
+                                       <cat>HH (DD)- BB(MM)-TTTT(YYYY)</cat>   
+                                    </div>			
+                                </div>      
+                        </div><br/>
+                        <div class="row">
+                                <div class="col-xs-4" style="font-size:12px;">
+                                    <td><span class="col-xs-2">25)</span> 
+                                    <span class="col-xs-10" style="padding-left:15px;font-size:12px;">Tandatangan *<br />
+                                    Signature *</span></td><br />       
+                                </div>
+                                <div class="col-xs-8">
+                                    <div class="col-xs-8" style="border:1px solid #000; border-radius:0px;margin-right:5px;">
+                                        <td><span><br/><br/></span></td>
+                                    </div>       
+                                </div>
+                        </div><br/>
+                        <div class="row" style="border:1px solid #000; border-radius:0px;background-color:#97C7FD;padding:10px 0px;margin:0px 10px;">
+                                <div class="col-xs-12 text-center">
+                                    <span style="font-size:15px;"><strong>UNTUK KEGUNAAN PEJABAT (FOR OFFICE USE ONLY) </strong></span><br />
+                                </div>
+                        </div><br />
+                        <div class="row" style="border:1px solid #000; border-radius:0px;padding:20px 5px;margin:-20px 10px 0px 10px;">
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="col-xs-5">
+                                        <td><span style="font-size:12px;">Tarikh Diterima *</span></td><br />
+                                        <cat><span style="font-size:12px;">Received Date *</span></cat><br /> 
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="col-xs-12" style="border:1px solid #000; border-radius:0px;">
+                                            <td><span><br/></span></td>
+                                        </div>
+                                        <br/>
+                                        <div class="col-xs-12" style="margin-left:-15px;font-size:12px;">
+                                           <cat>HH (DD)- BB(MM)-TTTT(YYYY)</cat>   
+                                        </div>	
+                                    </div>
+                                </div> 
+                                <div class="col-xs-6">
+                                    <div class="col-xs-5">
+                                        <td><span style="font-size:12px;">Tarikh Cop Pos *</span></td><br />
+                                        <cat><span style="font-size:12px;">Postmark Date *</span></cat><br /> 
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="col-xs-12" style="border:1px solid #000; border-radius:0px;">
+                                            <td><span><br/></span></td>
+                                        </div>
+                                        <br/>
+                                        <div class="col-xs-12" style="margin-left:-15px;font-size:12px;">
+                                           <cat>HH (DD)- BB(MM)-TTTT(YYYY)</cat>   
+                                        </div>	
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span style="font-size:12px;">This form is prescribed under Goods and Services Tax Regulations 2015</span>
+                    <span style="font-size:12px;" class="pull-right">GST-03 | 3 / 3</span>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+       </t>
+    </template>
+
+    <report 
+        id="gst_tap_file"
+        string="GST TAP File"
+        model="gst.tap.file" 
+        report_type="qweb-pdf"
+        file="skytax.gst_tap_pdf" 
+        name="skytax.gst_tap_pdf"
+    />
+</data>
+</openerp>

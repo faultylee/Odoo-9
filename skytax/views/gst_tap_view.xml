@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <!--GST Tap File search view-->
+    <record model="ir.ui.view" id="gst_search">
+        <field name="name">gst.tap.file.search</field>
+        <field name="model">gst.tap.file</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string = "GST Tap File Search">
+                <field name="name" string = "Name"/>
+            </search>
+        </field>
+    </record>
+
+    <!--GST Tap File tree View-->
+    <record id="gst_tree" model="ir.ui.view">
+        <field name="name">gst.tap.file.tree</field>
+        <field name="model">gst.tap.file</field>
+        <field name="arch" type="xml">
+            <tree string="GST Tap File Report">  
+                <field name="name"/> 
+                <field name="write_date" /> 
+            </tree>
+        </field>
+    </record>
+
+    <!--GST Tap File Report Form View-->
+    <record id="gst_report_form" model="ir.ui.view">
+        <field name="name">gst.tap.file.form</field>
+        <field name="model">gst.tap.file</field>
+        <field name="arch" type="xml">
+            <form string="GST Tap File Report" version="7.0">  
+                <sheet>
+                    <group col="4" string="Company Information">
+                       <field name="chart_account_id" widget='selection' on_change="onchange_chart_id(chart_account_id, context)" invisible="1"/>
+                       <field name="company_id" invisible="0"/>
+                    </group>
+                    <group col="4" string="Dates">
+                        <group>
+                            <field name="date_from" />
+                            <field name="date_to" />
+                        </group>
+                        <group>
+                            <field name="due_date" required='True'/>
+                            <field name="write_date" readonly='True'/>
+                        </group>
+                    </group>
+                    <group col="4" string="Generate And Download">
+                        <group>
+                            <field name="name"/> 
+                            <field name="data"/>
+                            <field name="write_date_txt"/>
+                            <button name="generate_txt" string="Generate TXT" icon="STOCK_INDENT" type="object"/>
+                            <button name="%(gst_tap_file)d" string="Download PDF" icon="STOCK_INDEX" type="action"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                     <notebook>
+                        <page string="GST Informations">
+                            <group col="4">
+                                <group>
+                                    <field name="c2" string='GST Collected (Supply)'/>
+                                    <field name="c4" string='GST Paid (Purchases)'/>
+                                </group>
+                                <group>
+                                    <field name="a1" string='GST Claimable From Kastam'/>
+                                    <field name="a2" string='GST Payable To Kastam'/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Details">
+                            <group col="4">
+                                <group string='GST Output'>
+                                    <field name="sr_base"/>
+                                    <field name="sr_tax"/>
+                                    <field name="t6_base"/>
+                                    <field name="t6_tax"/>
+                                </group>
+                                <group string='GST Input'>
+                                    <field name="tx_base"/>
+                                    <field name="tx_tax"/>
+                                    <field name="tx-re_base"/>
+                                    <field name="tx-re_tax"/>
+                                    <field name="dmr_irr"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gst_tap_file_report" model="ir.actions.act_window">
+        <field name='name'>GST Tap File Report</field>
+        <field name='res_model'>gst.tap.file</field>
+        <field name='view_type'>form</field>
+        <field name='view_mode'>tree,form</field>
+    </record>
+    
+    <menuitem name="GST Tap File Report" parent="menu_report_gst" sequence = "3" 
+        action="action_gst_tap_file_report" id="menu_gst_tap_file_report"/>
+        
+</data>
+</openerp>
